@@ -24,7 +24,8 @@ date_default_timezone_set("Asia/Jakarta");
                     ?>
                     Tanggal Sekarang : <span id="now"><?= date('d-m-Y H:i:s', time()); ?></span> <br /><hr>
                     Nama : <?= $listFile->name; ?> <br />
-                    Start Lelang : <?= $listFile->start; ?> | Berakhir Lelang : <?= $listFile->end; ?> <br /><br />
+                    Start Lelang : <?= $listFile->start; ?> | Berakhir Lelang : <?= $listFile->end; ?> <br />
+                    Waktu Berakhir : <span id="end"></span><br /><br />
                     Status Lelang : <span id="status"></span>
                 </div>
             </div>
@@ -43,6 +44,10 @@ date_default_timezone_set("Asia/Jakarta");
             var unixEnd = <?= strtotime($listFile->end); ?>;
             var unixStart = <?= strtotime($listFile->start); ?>;
             var unixNow = new Date().getTime() / 1000;
+            var end = document.getElementById('end');
+            // Diff start and end and show time
+            var diff = unixEnd - unixNow;
+            end.innerHTML = new Date(diff * 1000).toISOString().substr(11, 8);
             var status = document.getElementById('status');
             if (unixNow < unixStart) {
                 status.innerHTML = 'Belum Dimulai';
